@@ -24,3 +24,4 @@ chmod +x "$INSTALL_SCRIPT"
 # Exit with the same exit code as install-components.sh
 exit $?
 
+
