@@ -1,0 +1,4689 @@
+Pseudo-terminal will not be allocated because stdin is not a terminal.
+Warning: Permanently added '10.115.90.55' (RSA) to the list of known hosts.
+User Access Verification
+
+stty: 'standard input': Inappropriate ioctl for device
+gl_set_term_size: NULL arguments(s).
+Cisco Nexus Operating System (NX-OS) Software
+TAC support: http://www.cisco.com/tac
+Copyright (C) 2002-2025, Cisco and/or its affiliates.
+All rights reserved.
+The copyrights to certain works contained in this software are
+owned by other third parties and used and distributed under their own
+licenses, such as open source.  This software is provided "as is," and unless
+otherwise stated, there is no warranty, express or implied, including but not
+limited to warranties of merchantability and fitness for a particular purpose.
+Certain components of this software are licensed under
+the GNU General Public License (GPL) version 2.0 or 
+GNU General Public License (GPL) version 3.0  or the GNU
+Lesser General Public License (LGPL) Version 2.1 or 
+Lesser General Public License (LGPL) Version 2.0. 
+A copy of each such license is available at
+http://www.opensource.org/licenses/gpl-2.0.php and
+http://opensource.org/licenses/gpl-3.0.html and
+http://www.opensource.org/licenses/lgpl-2.1.php and
+http://www.gnu.org/licenses/old-licenses/library.txt.
+
+Software
+  BIOS: version 01.14
+  NXOS: version 10.4(5) [Maintenance Release]
+  Host NXOS: version 10.4(5)
+  BIOS compile time:  11/25/2024
+  NXOS image file is: bootflash:///nxos64-cs.10.4.5.M.bin
+  NXOS compile time:  3/5/2025 31:00:00 [03/01/2025 06:48:31]
+  NXOS boot mode: LXC
+
+Hardware
+  cisco Nexus9000 C9332D-GX2B Chassis 
+  Intel(R) Xeon(R) CPU D-1633N @ 2.50GHz with 32802100 kB of memory.
+  Processor Board ID FLM283601WN
+  Device name: FE-SLF2
+  bootflash:  115802886 kB
+
+Kernel uptime is 104 day(s), 20 hour(s), 18 minute(s), 17 second(s)
+
+Last reset at 616659 usecs after Fri Aug  8 14:37:13 2025
+  Reason: Module PowerCycled
+  System version: 
+  Service: HW check by card-client
+
+plugin
+  Core Plugin, Ethernet Plugin
+
+Active Package(s):
+	
+
+!Command: show running-config
+!Running configuration last done at: Sat Nov  8 17:45:54 2025
+!Time: Fri Nov 21 09:55:55 2025
+
+version 10.4(5) Bios:version 01.14 
+hostname FE-SLF2
+policy-map type network-qos qos_network
+  class type network-qos c-8q-nq3
+    mtu 9216
+    pause pfc-cos 3
+  class type network-qos c-8q-nq-default
+    mtu 9216
+vdc FE-SLF2 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature nxapi
+cfs ipv4 distribute
+nv overlay evpn
+feature ospf
+feature bgp
+feature pim
+feature grpc
+feature interface-vlan
+feature vn-segment-vlan-based
+feature lacp
+feature dhcp
+feature vpc
+feature lldp
+clock timezone EST -5 0
+clock summer-time EDT 2 Sunday March 02:00 1 Sunday November 02:00 60
+feature nv overlay
+feature ngoam
+feature telemetry
+
+mac-move policy move-threshold 6 detect-intvl 30 hold-intvl 120
+
+no password strength-check
+username admin password 5 $5$AKFCBE$DyBzx.HoYtqOycOu3MgrwjukmSF.89HV0NEviX3xJ45  role network-admin
+username rci password 5 !  role network-admin
+username rci sshkey ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCjFrRpx3Jg2PN5Yt6ZLlJzexbPK2/PjKMkXAR9UmB46ynbetwDdQKTwTmsqV6JNgsTkfZEkQx/DcPSfjS2LGBnkRq2Wys+JD0dcHELh2F/Xg4au8Hj3qQvHzEZRw7Hg358idTAAjN4RI96LLmGOB81xLLzN+937F//NeszYVGZsk+bwt3cNKFTmAVNPRnlpKH9bA7Pq4210Epu+qjFFYd+eZZCra0LNgrx41icgIDoTGp7c6VMWIVpqpfLzoL/kRyKcyWhBKOhgauMWgiW0qf4x5NLasZVn352Y/fgZSXLItFve8yzEniBN5Gund28E1Bvg+6HjLF9iaQ88jRlB8UqknCKcamLH0juudSZwn4Cc8+jtVFH5WtsSm+jdDyBxPnaO9ew39LAAJTrIvYLFJAt3esvl5lm9ezRlQ85RcSmzrGnULyXXVOrYxkhDYnMwKAvSSS43XsTroh3B2wLOzO+a+8Hm358snrjFLFY36uu8Bn2nvJgw9c1ElPzclHPFo0= rci@RCI-M-26F7
+username rci passphrase  lifetime 99999 warntime 14 gracetime 3
+username nd-user password 5 $5$OHDFCJ$XyBamIiBIY8b4bNTMwFX3Tn8vluTc0fPy2ZFurOR/24  role network-operator
+username nd-user passphrase  lifetime 99999 warntime 14 gracetime 3
+ip domain-lookup
+interface breakout module 1 port 9-20 map 200g-2x
+class-map type qos match-any CNP
+  match dscp 48
+class-map type qos match-any ROCEv2
+  match dscp 26
+policy-map type qos QOS_CLASSIFICATION
+  class ROCEv2
+    set qos-group 3
+  class CNP
+    set qos-group 7
+  class class-default
+    set qos-group 0
+policy-map type queuing QOS_EGRESS_PORT
+  class type queuing c-out-8q-q6
+    bandwidth remaining percent 0
+  class type queuing c-out-8q-q5
+    bandwidth remaining percent 0
+  class type queuing c-out-8q-q4
+    bandwidth remaining percent 0
+  class type queuing c-out-8q-q3
+    bandwidth remaining percent 50
+    random-detect minimum-threshold 150 kbytes maximum-threshold 3000 kbytes drop-probability 7 weight 0 ecn
+  class type queuing c-out-8q-q2
+    bandwidth remaining percent 0
+  class type queuing c-out-8q-q1
+    bandwidth remaining percent 0
+  class type queuing c-out-8q-q-default
+    bandwidth remaining percent 50
+  class type queuing c-out-8q-q7
+    priority level 1
+system qos
+  service-policy type network-qos qos_network
+  service-policy type queuing output QOS_EGRESS_PORT
+copp profile strict
+snmp-server user admin network-admin auth md5 531069B9A593CB247AC8D6A27031A1E7BB16 priv aes-128 167B05DD10277093D6626B2EE8B83D7972D0 localizedV2key
+snmp-server user nd-user network-operator auth md5 041F737E4B20725C4CE4E9EA668B8F3D45D8 priv aes-128 49637A25043238021FECB0B93DA198754B99 localizedV2key
+snmp-server host 10.115.90.237 traps version 2c public udp-port 2162
+ntp server 10.81.254.202 use-vrf management
+ntp server 10.101.217.202 use-vrf management
+ntp server 72.163.32.44 use-vrf management
+
+fabric forwarding anycast-gateway-mac 2020.0000.00aa
+ipv6 switch-packets lla
+ip pim rp-address 10.254.254.1 group-list 239.1.1.0/25
+ip pim ssm range 232.0.0.0/8
+vlan 1,10,69,570,703,2000,3051-3052,3054,3056
+vlan 10
+  name VAST-Discovery_VLAN10
+  vn-segment 30010
+vlan 69
+  name VAST-Storage_VLAN_69
+  vn-segment 30069
+vlan 570
+  name Pure-S3-OBJ_VLAN
+  vn-segment 30570
+vlan 703
+  name IB-MGMT_VLAN
+  vn-segment 30000
+vlan 2000
+  vn-segment 50000
+vlan 3051
+  name NetApp-NFS_VLAN3051
+  vn-segment 30001
+vlan 3052
+  name NetApp-NFS_VLAN3052
+  vn-segment 30002
+vlan 3054
+  name Pure-NFS_VLAN_3054
+  vn-segment 33054
+vlan 3056
+  name VAST-Client_VLAN_3056
+  vn-segment 33056
+
+route-map fabric-rmap-redist-subnet permit 10
+  match tag 12345 
+service dhcp
+ip dhcp relay
+ip dhcp relay information option
+ip dhcp relay information option vpn
+ipv6 dhcp relay
+vrf context fe-mgmt_vni50000
+  description Frontend Fabric - Management VRF
+  vni 50000
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+  address-family ipv6 unicast
+    route-target both auto
+    route-target both auto evpn
+vrf context management
+  ip name-server 10.115.90.123 10.115.90.124
+  ip route 0.0.0.0/0 10.115.90.1
+priority-flow-control watch-dog-interval on
+hardware profile dme load-interval 10
+vpc domain 2
+  peer-switch
+  peer-keepalive destination 10.115.90.54 source 10.115.90.55
+  virtual peer-link destination 10.2.0.1 source 10.2.0.3 dscp 56
+  delay restore 150
+  peer-gateway
+  layer3 peer-router
+  auto-recovery reload-delay 360
+  ipv6 nd synchronize
+  ip arp synchronize
+
+nxapi http port 80
+
+
+interface Vlan1
+  no ip redirects
+  no ipv6 redirects
+
+interface Vlan570
+  no shutdown
+  vrf member fe-mgmt_vni50000
+  no ip redirects
+  ip address 10.115.90.214/29 tag 12345
+  no ipv6 redirects
+  fabric forwarding mode anycast-gateway
+
+interface Vlan703
+  description IB-MGMT
+  no shutdown
+  vrf member fe-mgmt_vni50000
+  no ip redirects
+  ip address 10.115.90.126/26 tag 12345
+  no ipv6 redirects
+  fabric forwarding mode anycast-gateway
+
+interface Vlan2000
+  description FE-MGMT  VRF
+  no shutdown
+  mtu 9216
+  vrf member fe-mgmt_vni50000
+  no ip redirects
+  ip forward
+  ipv6 address use-link-local-only
+  no ipv6 redirects
+
+interface port-channel18
+  description To RTP5-BCME-MGMT-1: 10.115.90.115 (PCIe3)
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3051
+  spanning-tree port type edge trunk
+  spanning-tree bpduguard enable
+  mtu 9216
+  vpc 18
+
+interface port-channel19
+  description To Pure Storage: XFM-1, XFM-2
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 570,703,3054
+  spanning-tree port type edge trunk
+  spanning-tree bpduguard enable
+  mtu 9216
+  vpc 19
+
+interface port-channel500
+  description "vpc-peer-link FE-SLF2--FE-SLF1"
+  switchport
+  switchport mode trunk
+  spanning-tree port type network
+  vpc peer-link
+
+interface nve1
+  no shutdown
+  host-reachability protocol bgp
+  advertise virtual-rmac
+  source-interface loopback1
+  member vni 30000
+    mcast-group 239.1.1.0
+  member vni 30001
+    mcast-group 239.1.1.0
+  member vni 30002
+    mcast-group 239.1.1.0
+  member vni 30010
+    mcast-group 239.1.1.0
+  member vni 30069
+    mcast-group 239.1.1.0
+  member vni 30570
+    mcast-group 239.1.1.0
+  member vni 33054
+    mcast-group 239.1.1.0
+  member vni 33056
+    mcast-group 239.1.1.0
+  member vni 50000 associate-vrf
+  service-policy type qos input QOS_CLASSIFICATION
+
+interface Ethernet1/1
+  description To Pure Storage: XFM-1, XFM-2
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 570,703,3054
+  mtu 9216
+  channel-group 19 mode active
+  no shutdown
+
+interface Ethernet1/2
+  description To Pure Storage: XFM-1, XFM-2
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 570,703,3054
+  mtu 9216
+  channel-group 19 mode active
+  no shutdown
+
+interface Ethernet1/3
+  description To Pure Storage: XFM-1, XFM-2
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 570,703,3054
+  mtu 9216
+  channel-group 19 mode active
+  no shutdown
+
+interface Ethernet1/4
+  description To Pure Storage: XFM-1, XFM-2
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 570,703,3054
+  mtu 9216
+  channel-group 19 mode active
+  no shutdown
+
+interface Ethernet1/5
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/6
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/7
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/8
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/9/1
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/9/2
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/10/1
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/10/2
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/11/1
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/11/2
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/12/1
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/12/2
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/13/1
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/13/2
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/14/1
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/14/2
+  description To VAST - Storage Internal Network
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  switchport trunk allowed vlan 10,69
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/15/1
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/15/2
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/16/1
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/16/2
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/17/1
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/17/2
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/18/1
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/18/2
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/19/1
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/19/2
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/20/1
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/20/2
+  description To VAST - Storage Access
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3056
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input QOS_CLASSIFICATION
+  no shutdown
+
+interface Ethernet1/21
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/22
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/23
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/24
+  description To RTP5-BCME-MGMT-1: 10.115.90.115 (PCIe3)
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 3051
+  mtu 9216
+  channel-group 18 mode active
+  no shutdown
+
+interface Ethernet1/25
+  description To NetApp: rtp5-ac01-nas-n01:e3a
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 703,3051-3052
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/26
+  description To NetApp: rtp5-ac01-nas-n02:e3a
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 703,3051-3052
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/27
+  description connected-to-FE-SP1-Ethernet1/4
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  mtu 9216
+  port-type fabric
+  service-policy type qos input QOS_CLASSIFICATION
+  ip address 10.4.0.26/30
+  ip ospf network point-to-point
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/28
+  description connected-to-FE-SP1-Ethernet1/5
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  mtu 9216
+  port-type fabric
+  service-policy type qos input QOS_CLASSIFICATION
+  ip address 10.4.0.38/30
+  ip ospf network point-to-point
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/29
+  description connected-to-FE-SP1-Ethernet1/6
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  mtu 9216
+  port-type fabric
+  service-policy type qos input QOS_CLASSIFICATION
+  ip address 10.4.0.46/30
+  ip ospf network point-to-point
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/30
+  description connected-to-FE-SP2-Ethernet1/4
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  mtu 9216
+  port-type fabric
+  service-policy type qos input QOS_CLASSIFICATION
+  ip address 10.4.0.30/30
+  ip ospf network point-to-point
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/31
+  description connected-to-FE-SP2-Ethernet1/5
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  mtu 9216
+  port-type fabric
+  service-policy type qos input QOS_CLASSIFICATION
+  ip address 10.4.0.34/30
+  ip ospf network point-to-point
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/32
+  description connected-to-FE-SP2-Ethernet1/6
+  priority-flow-control mode on
+  priority-flow-control watch-dog-interval on
+  mtu 9216
+  port-type fabric
+  service-policy type qos input QOS_CLASSIFICATION
+  ip address 10.4.0.42/30
+  ip ospf network point-to-point
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/33
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/34
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan none
+  spanning-tree port type edge trunk
+  mtu 9216
+  no shutdown
+
+interface mgmt0
+  no cdp enable
+  vrf member management
+  ip address 10.115.90.55/26
+
+interface loopback0
+  description Routing loopback interface
+  ip address 10.2.0.3/32
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+
+interface loopback1
+  description VTEP loopback interface
+  ip address 10.3.0.2/32
+  ip address 10.3.0.6/32 secondary
+  ip router ospf UNDERLAY area 0.0.0.0
+  ip pim sparse-mode
+line console
+line vty
+boot nxos bootflash:/nxos64-cs.10.4.5.M.bin 
+router ospf UNDERLAY
+  router-id 10.2.0.3
+router bgp 65101
+  router-id 10.2.0.3
+  address-family l2vpn evpn
+    advertise-pip
+  neighbor 10.2.0.2
+    remote-as 65101
+    description to-FE-SP1
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+  neighbor 10.2.0.4
+    remote-as 65101
+    description to-FE-SP2
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+  vrf fe-mgmt_vni50000
+    address-family ipv4 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+    address-family ipv6 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+evpn
+  vni 30000 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 30001 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 30002 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 30010 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 30069 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 30570 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 33054 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 33056 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+
+
+telemetry
+  destination-profile
+    use-vrf default
+    source-interface loopback0
+  destination-group 500
+    ip address 10.115.90.234 port 57500 protocol gRPC encoding GPB 
+    use-chunking size 4096
+  destination-group 501
+    ip address 10.115.90.234 port 57500 protocol gRPC encoding GPB-compact 
+    use-chunking size 4096
+  sensor-group 500
+    data-source NX-API
+    path "show icam scale" depth unbounded
+    path "show processes cpu" depth unbounded
+    path "show processes memory physical" depth unbounded
+    path "show spanning-tree summary" depth unbounded
+  sensor-group 501
+    data-source DME
+    path sys/exitproc depth unbounded query-condition query-target=subtree&target-subtree-class=procExitProcEntry
+  sensor-group 502
+    data-source NX-API
+    path "show ipv6 interface brief VRF all" depth unbounded
+    path "show lacp counters detail" depth unbounded
+    path "show lacp interface" depth unbounded
+    path "show lldp traffic interface all" depth unbounded
+    path "show port-channel summary" depth unbounded
+    path "show system internal flash" depth unbounded
+  sensor-group 503
+    data-source DME
+    path sys/bd depth unbounded query-condition query-target=subtree&target-subtree-class=l2BD,l2VlanMemberIf
+  sensor-group 504
+    data-source DME
+    path sys/bd depth unbounded query-condition query-target=subtree&target-subtree-class=l2VlanStats
+  sensor-group 505
+    data-source DME
+    path sys/eps depth unbounded query-condition query-target=subtree&target-subtree-class=nvoEps,nvoEp,nvoOperNw
+  sensor-group 506
+    data-source DME
+    path sys/mgmt-[mgmt0] depth unbounded query-condition query-target=subtree&target-subtree-class=mgmtMgmtIf,imMgmtIf
+  sensor-group 507
+    data-source DME
+    path sys/intf query-condition query-target=subtree&target-subtree-class=tunnelifIf
+  sensor-group 508
+    data-source DME
+    path sys/ch depth unbounded query-condition query-target=subtree&target-subtree-class=eqptPsu
+    path sys/intf query-condition query-target=subtree&target-subtree-class=l1PhysIf&query-target-filter=eq(l1PhysIf.adminSt,"up")&rsp-subtree=children&target-subtree-class=ethpmPhysIf&query-target-filter=eq(ethpmPhysIf.operSt,"up")&rsp-subtree-depth=2&rsp-ancestor-depth=1
+    path sys/ipqos depth unbounded query-condition query-target=subtree&target-subtree-class=ipqosQueuingStats&query-target-filter=or(ne(ipqosQueuingStats.pfcRxPpp,"0"),ne(ipqosQueuingStats.randEcnMarkedPackets,"0"),ne(ipqosQueuingStats.pfcTxPpp,"0"),ne(ipqosQueuingStats.dropPackets,"0"))
+    path sys/mgmt-[mgmt0] depth unbounded query-condition query-target=subtree&target-subtree-class=mgmtMgmtIf,imMgmtIf,rmonDot3Stats,rmonEtherStats,rmonIfIn,rmonIfOut
+  sensor-group 509
+    data-source DME
+    path sys/intf depth unbounded query-condition query-target=subtree&target-subtree-class=l3LbRtdIf,ethpmLbRtdIf
+  sensor-group 510
+    data-source DME
+    path sys query-condition query-target=subtree&target-subtree-class=l3Inst
+    path sys/ch depth 1 query-condition query-target=subtree&target-subtree-class=eqptSensor
+    path sys/intf query-condition query-target=subtree&target-subtree-class=eqptFcotLane,eqptFcotSensor
+  sensor-group 511
+    data-source DME
+    path sys/ch depth 1 query-condition query-target=subtree&target-subtree-class=eqptFan
+  sensor-group 512
+    data-source NX-API
+    path "show nve peers detail" depth unbounded
+    path "show nve vni" depth unbounded
+    path "show system internal icam app system internal access-list resource utilization" depth unbounded query-condition show-output-format=json
+  sensor-group 513
+    data-source NX-API
+    path "show feature" depth unbounded
+    path "show system routing mode" depth unbounded
+  sensor-group 514
+    data-source DME
+    path sys/bgp depth 1 query-condition query-target=subtree&target-subtree-class=bgpPeerEntryStats,bgpPeerAfEntry
+    path sys/cdp depth 1 query-condition query-target=subtree&target-subtree-class=cdpIf,cdpIfStats,cdpAdjEp,cdpInst
+    path sys/lldp depth 1 query-condition query-target=subtree&target-subtree-class=lldpIf,lldpAdjEp,lldpIfStats
+    path sys/ospf depth 1 query-condition query-target=subtree&target-subtree-class=ospfAdjStats
+    path sys/pim/pimdomdb query-condition rsp-subtree=full&rsp-foreign-subtree=ephemeral
+    path sys/pim/pimifdb-stats query-condition rsp-subtree=full&rsp-foreign-subtree=ephemeral
+  sensor-group 515
+    data-source DME
+    path sys/cdp depth unbounded query-condition query-target=subtree&target-subtree-class=cdpIf,cdpAdjEp,cdpInst,cdpMgmtAddr
+  sensor-group 516
+    data-source DME
+    path sys/bgp depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=bgpEntity,bgpInst,bgpDom,bgpDomAf,bgpPeer,bgpPeerEntry,bgpPeerEvents
+  sensor-group 517
+    data-source DME
+    path sys/ospf depth unbounded query-condition query-target=subtree&target-subtree-class=ospfIf,ospfInst,ospfDom,ospfArea,ospfAdjEp,ospfAuthNewP
+  sensor-group 518
+    data-source DME
+    path sys/lldp depth unbounded query-condition query-target=subtree&target-subtree-class=lldpIf,lldpAdjEp,lldpInst
+  sensor-group 519
+    data-source DME
+    path sys/intf depth unbounded query-condition query-target=subtree&target-subtree-class=pcAggrIf&query-target-filter=deleted()
+  sensor-group 520
+    data-source DME
+    path sys/ch depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=eqptLC,eqptSupC,eqptFtSlot,eqptFt,eqptPsuSlot,eqptFan,eqptFC,eqptSysC
+  sensor-group 521
+    data-source DME
+    path sys/ch depth unbounded query-condition query-target=subtree&target-subtree-class=eqptPsu&query-target-filter=or(and(updated(eqptPsu.operSt),eq(eqptPsu.operSt,"ok")),and(updated(eqptPsu.operSt),ne(eqptPsu.operSt,"ok")))
+  sensor-group 522
+    data-source NX-API
+    path "show ip igmp snooping" depth unbounded
+    path "show ip igmp snooping groups" depth unbounded
+    path "show ip igmp snooping groups detail" depth unbounded
+    path "show ip igmp snooping groups summary" depth unbounded
+    path "show ip igmp snooping statistics" depth unbounded
+  sensor-group 523
+    data-source NX-API
+    path "show queuing burst-detect detail" depth unbounded
+  sensor-group 524
+    data-source NATIVE
+    path adjacency
+    path mac-all
+  sensor-group 525
+    data-source DME
+    path sys/intf depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=ethpmAggrIf&rsp-subtree=children
+  sensor-group 526
+    data-source NX-API
+    path "show system resources" depth unbounded
+  sensor-group 527
+    data-source DME
+    path sys/pim depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=pimRPGrange,pimRPInfo,pimIf
+  sensor-group 528
+    data-source DME
+    path sys/pim/pimifdb-adj query-condition query-target=subtree&complete-mo=yes
+  sensor-group 529
+    data-source DME
+    path sys/pim/pimifdb-prop query-condition query-target=subtree&complete-mo=yes
+  sensor-group 530
+    data-source DME
+    path sys/pim/inst/routedb-route query-condition query-target=subtree&complete-mo=yes
+  sensor-group 531
+    data-source DME
+    path sys/igmp/igmpifdb-stats query-condition rsp-subtree=full&rsp-foreign-subtree=ephemeral
+  sensor-group 532
+    data-source DME
+    path sys/igmp/igmpifdb-prop query-condition query-target=subtree&complete-mo=yes
+  sensor-group 533
+    data-source DME
+    path sys/igmp/inst/routedb query-condition query-target=subtree&complete-mo=yes
+  sensor-group 534
+    data-source DME
+    path sys/intf query-condition query-target=subtree&target-subtree-class=ethpmPhysIf
+  sensor-group 535
+    data-source DME
+    path sys/vpc depth unbounded query-condition query-target=subtree&target-subtree-class=vpcDom,vpcIf,vpcPeerLink,vpcRsVpcConf
+  sensor-group 536
+    data-source DME
+    path sys/ipv4 query-condition query-target=subtree&target-subtree-class=ipv4If,ipv4Addr
+  sensor-group 537
+    data-source DME
+    path sys/ipv6 query-condition query-target=subtree&target-subtree-class=ipv6Addr,ipv6If
+  sensor-group 538
+    data-source DME
+    path sys/intf depth unbounded query-condition query-target=subtree&target-subtree-class=sviIf
+  sensor-group 539
+    data-source DME
+    path sys/intf query-condition query-target=subtree&target-subtree-class=l3EncRtdIf,ethpmEncRtdIf
+  sensor-group 540
+    data-source DME
+    path sys/intf query-condition query-target=subtree&target-subtree-class=nwRtVrfMbr
+  sensor-group 541
+    data-source DME
+    path sys/clock depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=datetimeTimezone
+  sensor-group 542
+    data-source DME
+    path sys/mca/show/flows/routes depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=mcaMcastFlow
+  sensor-group 543
+    data-source DME
+    path sys/mca/show/flows/oiflists depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=mcaMcastOif
+  sensor-group 544
+    data-source DME
+    path sys/igmp/inst/hostTrack depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=igmpRouteInfo
+  sensor-group 545
+    data-source DME
+    path sys/igmpsnoop/inst/dom/hostTrack depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=igmpsnoopExpHostTrackRec
+  sensor-group 546
+    data-source DME
+    path sys/eps depth unbounded query-condition query-target=subtree&target-subtree-class=nvoDyPeer,nvoOperNw
+    path sys/mca/show/stats depth unbounded query-condition query-target=subtree&query-target-filter=or(eq(mcaStatsEntry.isFhr,"YES"),eq(mcaStatsEntry.isLhr,"YES"))&target-subtree-class=mcaStatsEntry
+  sensor-group 547
+    data-source DME
+    path sys/intf query-condition query-target=subtree&target-subtree-class=pcAggrIf&rsp-subtree=children
+  sensor-group 548
+    data-source DME
+    path sys/mca/show/flows/oiflists depth unbounded query-condition query-target=subtree&complete-mo=yes&notify-interval=1&target-subtree-class=mcaVxlanEncap
+  sensor-group 549
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgDom
+  sensor-group 550
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgGroupInst
+  sensor-group 551
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgMatchClassMap
+  sensor-group 552
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgClassMapInst
+  sensor-group 553
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgClassMapFilterEntry
+  sensor-group 554
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgContractEntity
+  sensor-group 555
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgContract
+  sensor-group 556
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgPolicyMapEntity
+  sensor-group 557
+    data-source DME
+    path sys/esg depth unbounded query-condition query-target=subtree&target-subtree-class=esgPolicyMapInst
+  subscription 500
+    dst-grp 500
+    snsr-grp 500 sample-interval 295000
+    snsr-grp 501 sample-interval 0
+    snsr-grp 502 sample-interval 300000
+    snsr-grp 503 sample-interval 0
+    snsr-grp 504 sample-interval 120000
+    snsr-grp 505 sample-interval 0
+    snsr-grp 506 sample-interval 0
+    snsr-grp 507 sample-interval 0
+    snsr-grp 508 sample-interval 60000
+    snsr-grp 509 sample-interval 0
+    snsr-grp 510 sample-interval 302000
+    snsr-grp 511 sample-interval 301000
+    snsr-grp 512 sample-interval 301000
+    snsr-grp 513 sample-interval 3600000
+    snsr-grp 514 sample-interval 305000
+    snsr-grp 515 sample-interval 0
+    snsr-grp 516 sample-interval 0
+    snsr-grp 517 sample-interval 0
+    snsr-grp 518 sample-interval 0
+    snsr-grp 519 sample-interval 0
+    snsr-grp 520 sample-interval 0
+    snsr-grp 521 sample-interval 0
+    snsr-grp 522 sample-interval 303000
+    snsr-grp 523 sample-interval 60000
+    snsr-grp 525 sample-interval 0
+    snsr-grp 526 sample-interval 64000
+    snsr-grp 527 sample-interval 0
+    snsr-grp 528 sample-interval 0
+    snsr-grp 529 sample-interval 0
+    snsr-grp 530 sample-interval 0
+    snsr-grp 531 sample-interval 306000
+    snsr-grp 532 sample-interval 0
+    snsr-grp 533 sample-interval 0
+    snsr-grp 534 sample-interval 0
+    snsr-grp 535 sample-interval 0
+    snsr-grp 536 sample-interval 0
+    snsr-grp 537 sample-interval 0
+    snsr-grp 538 sample-interval 0
+    snsr-grp 539 sample-interval 0
+    snsr-grp 540 sample-interval 0
+    snsr-grp 541 sample-interval 0
+    snsr-grp 542 sample-interval 0
+    snsr-grp 543 sample-interval 0
+    snsr-grp 544 sample-interval 0
+    snsr-grp 545 sample-interval 0
+    snsr-grp 546 sample-interval 300000
+    snsr-grp 547 sample-interval 61000
+    snsr-grp 548 sample-interval 0
+    snsr-grp 549 sample-interval 0
+    snsr-grp 550 sample-interval 0
+    snsr-grp 551 sample-interval 0
+    snsr-grp 552 sample-interval 0
+    snsr-grp 553 sample-interval 0
+    snsr-grp 554 sample-interval 0
+    snsr-grp 555 sample-interval 0
+    snsr-grp 556 sample-interval 0
+    snsr-grp 557 sample-interval 0
+  subscription 501
+    dst-grp 501
+    snsr-grp 524 sample-interval 0
+
+mgmt0 is up
+admin state is up,
+  Hardware: GigabitEthernet, address: 9c66.9759.5b26 (bia 9c66.9759.5b26)
+  Internet Address is 10.115.90.55/26
+  MTU 1500 bytes, BW 1000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  full-duplex, 1000 Mb/s
+  Auto-Negotiation is turned on
+  Auto-mdix is turned off
+  EtherType is 0x0000 
+  1 minute input rate 7456 bits/sec, 9 packets/sec
+  1 minute output rate 3232 bits/sec, 1 packets/sec
+  Rx
+    129806193 input packets 70104065 unicast packets 44754457 multicast packets
+    14947671 broadcast packets 14132264805 bytes
+  Tx
+    72894701 output packets 72894669 unicast packets 14 multicast packets
+    18 broadcast packets 32041192436 bytes
+  Management transceiver: Absent
+  Active connector: RJ45
+  Configured Media-type: RJ45 
+Ethernet1/1 is up
+admin state is up, Dedicated Interface
+  Belongs to Po19
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b2e (bia 9c66.9759.5b2e)
+  Description: To Pure Storage: XFM-1, XFM-2
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 1week(s) 6day(s)
+  Last clearing of "show interface" counters 7w3d
+  16 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 1016 bits/sec, 0 packets/sec
+    30 seconds output rate 544 bits/sec, 0 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 544 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 1016 bits/sec, 0 packets/sec
+    300 seconds output rate 608 bits/sec, 0 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 608 bps, 0 pps
+  RX
+    255401 unicast packets  4689809 multicast packets  3112 broadcast packets
+    4948322 input packets  744604520 bytes
+    20601 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    37531 unicast packets  2103930 multicast packets  38057 broadcast packets
+    2179518 output packets  263822241 bytes
+    3684 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/2 is up
+admin state is up, Dedicated Interface
+  Belongs to Po19
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b32 (bia 9c66.9759.5b32)
+  Description: To Pure Storage: XFM-1, XFM-2
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 1week(s) 6day(s)
+  Last clearing of "show interface" counters 7w3d
+  14 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 1016 bits/sec, 0 packets/sec
+    30 seconds output rate 1152 bits/sec, 1 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 1.15 Kbps, 1 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 1016 bits/sec, 0 packets/sec
+    300 seconds output rate 1088 bits/sec, 1 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 1.09 Kbps, 1 pps
+  RX
+    33623 unicast packets  4689935 multicast packets  1692 broadcast packets
+    4725250 input packets  622929600 bytes
+    775 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    14801 unicast packets  2112621 multicast packets  314 broadcast packets
+    2127736 output packets  224024413 bytes
+    164 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/3 is up
+admin state is up, Dedicated Interface
+  Belongs to Po19
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b36 (bia 9c66.9759.5b36)
+  Description: To Pure Storage: XFM-1, XFM-2
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 1week(s) 6day(s)
+  Last clearing of "show interface" counters 7w3d
+  35662 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 1016 bits/sec, 0 packets/sec
+    30 seconds output rate 160 bits/sec, 0 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 160 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 1016 bits/sec, 0 packets/sec
+    300 seconds output rate 144 bits/sec, 0 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 144 bps, 0 pps
+  RX
+    34944 unicast packets  4689919 multicast packets  3050 broadcast packets
+    4727913 input packets  630914630 bytes
+    1988 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    242509 unicast packets  380599 multicast packets  36726 broadcast packets
+    659834 output packets  198596374 bytes
+    18800 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/4 is up
+admin state is up, Dedicated Interface
+  Belongs to Po19
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b3a (bia 9c66.9759.5b3a)
+  Description: To Pure Storage: XFM-1, XFM-2
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 1week(s) 6day(s)
+  Last clearing of "show interface" counters 7w3d
+  38175 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 1016 bits/sec, 0 packets/sec
+    30 seconds output rate 480 bits/sec, 0 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 480 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 1016 bits/sec, 0 packets/sec
+    300 seconds output rate 296 bits/sec, 0 packets/sec
+    input rate 1.02 Kbps, 0 pps; output rate 296 bps, 0 pps
+  RX
+    66811 unicast packets  4689975 multicast packets  1691 broadcast packets
+    4758477 input packets  901341364 bytes
+    32507 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    76079 unicast packets  397202 multicast packets  83 broadcast packets
+    473364 output packets  461853408 bytes
+    39848 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/5 is down (Link not connected)
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b3e (bia 9c66.9759.5b3e)
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed, media type is 100G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/6 is down (Link not connected)
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b42 (bia 9c66.9759.5b42)
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed, media type is 100G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/7 is down (Link not connected)
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b46 (bia 9c66.9759.5b46)
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed, media type is 100G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/8 is down (Link not connected)
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b4a (bia 9c66.9759.5b4a)
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed, media type is 100G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/9/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b4e (bia 9c66.9759.5b4e)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:03
+  Last clearing of "show interface" counters never
+  21 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 806588800 bits/sec, 274526 packets/sec
+    30 seconds output rate 831133608 bits/sec, 274714 packets/sec
+    input rate 806.59 Mbps, 274.53 Kpps; output rate 831.13 Mbps, 274.71 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 803427312 bits/sec, 276355 packets/sec
+    300 seconds output rate 849969168 bits/sec, 277019 packets/sec
+    input rate 803.43 Mbps, 276.36 Kpps; output rate 849.97 Mbps, 277.02 Kpps
+  RX
+    717487812533 unicast packets  162311 multicast packets  652676 broadcast packets
+    717488652304 input packets  526696470525800 bytes
+    110230568089 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    720361341034 unicast packets  4778128 multicast packets  6160040 broadcast packets
+    720372609349 output packets  600189416657966 bytes
+    128494530469 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5284 output discard
+    0 Tx pause
+
+Ethernet1/9/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b4f (bia 9c66.9759.5b4f)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 864232328 bits/sec, 294769 packets/sec
+    30 seconds output rate 873434856 bits/sec, 295032 packets/sec
+    input rate 864.23 Mbps, 294.77 Kpps; output rate 873.43 Mbps, 295.03 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 859162528 bits/sec, 292309 packets/sec
+    300 seconds output rate 855165728 bits/sec, 292229 packets/sec
+    input rate 859.16 Mbps, 292.31 Kpps; output rate 855.16 Mbps, 292.23 Kpps
+  RX
+    958250161331 unicast packets  119390 multicast packets  8492 broadcast packets
+    958250301156 input packets  727131779971277 bytes
+    152982788957 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    938276582653 unicast packets  4894465 multicast packets  6800850 broadcast packets
+    938288408907 output packets  613802498296153 bytes
+    125500667025 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5299 output discard
+    0 Tx pause
+
+Ethernet1/10/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b52 (bia 9c66.9759.5b52)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 763923112 bits/sec, 266106 packets/sec
+    30 seconds output rate 818348792 bits/sec, 266976 packets/sec
+    input rate 763.92 Mbps, 266.11 Kpps; output rate 818.35 Mbps, 266.98 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 761122200 bits/sec, 267698 packets/sec
+    300 seconds output rate 830767304 bits/sec, 268903 packets/sec
+    input rate 761.12 Mbps, 267.70 Kpps; output rate 830.77 Mbps, 268.90 Kpps
+  RX
+    954794965244 unicast packets  115084 multicast packets  8837 broadcast packets
+    954795089165 input packets  733953858838148 bytes
+    154791667041 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    934257680162 unicast packets  4785888 multicast packets  6800995 broadcast packets
+    934269267078 output packets  614696927907182 bytes
+    125869799381 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5262 output discard
+    0 Tx pause
+
+Ethernet1/10/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b53 (bia 9c66.9759.5b53)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:08
+  Last clearing of "show interface" counters never
+  21 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 865685816 bits/sec, 287245 packets/sec
+    30 seconds output rate 864261752 bits/sec, 287250 packets/sec
+    input rate 865.68 Mbps, 287.24 Kpps; output rate 864.26 Mbps, 287.25 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 858430960 bits/sec, 281478 packets/sec
+    300 seconds output rate 825390336 bits/sec, 280690 packets/sec
+    input rate 858.43 Mbps, 281.48 Kpps; output rate 825.39 Mbps, 280.69 Kpps
+  RX
+    718340543093 unicast packets  147769 multicast packets  9358 broadcast packets
+    718343881504 input packets  531172731721093 bytes
+    111411773569 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    730889867686 unicast packets  4890768 multicast packets  6800973 broadcast packets
+    730904742337 output packets  636769533552432 bytes
+    137307276658 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5263 output discard
+    0 Tx pause
+
+Ethernet1/11/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b56 (bia 9c66.9759.5b56)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:03
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 789049928 bits/sec, 272457 packets/sec
+    30 seconds output rate 851359928 bits/sec, 273597 packets/sec
+    input rate 789.05 Mbps, 272.46 Kpps; output rate 851.36 Mbps, 273.60 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 779984168 bits/sec, 268437 packets/sec
+    300 seconds output rate 833240152 bits/sec, 269430 packets/sec
+    input rate 779.98 Mbps, 268.44 Kpps; output rate 833.24 Mbps, 269.43 Kpps
+  RX
+    810815716284 unicast packets  162957 multicast packets  8259 broadcast packets
+    810816823471 input packets  637896194580093 bytes
+    135674578083 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    805235259021 unicast packets  4972551 multicast packets  6800975 broadcast packets
+    805260410764 output packets  601767216723294 bytes
+    126858367611 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5279 output discard
+    0 Tx pause
+
+Ethernet1/11/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b57 (bia 9c66.9759.5b57)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:01
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 883002392 bits/sec, 284897 packets/sec
+    30 seconds output rate 818849112 bits/sec, 283614 packets/sec
+    input rate 883.00 Mbps, 284.90 Kpps; output rate 818.85 Mbps, 283.61 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 878495240 bits/sec, 285851 packets/sec
+    300 seconds output rate 830832744 bits/sec, 284922 packets/sec
+    input rate 878.49 Mbps, 285.85 Kpps; output rate 830.83 Mbps, 284.92 Kpps
+  RX
+    932686804435 unicast packets  161529 multicast packets  8661 broadcast packets
+    932687986132 input packets  676984109404986 bytes
+    141165733291 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    922800378554 unicast packets  4910187 multicast packets  6800805 broadcast packets
+    922828665146 output packets  611499821902328 bytes
+    125238393849 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5286 output discard
+    0 Tx pause
+
+Ethernet1/12/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b5a (bia 9c66.9759.5b5a)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:12
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 981183192 bits/sec, 294085 packets/sec
+    30 seconds output rate 814841496 bits/sec, 291045 packets/sec
+    input rate 981.18 Mbps, 294.08 Kpps; output rate 814.84 Mbps, 291.05 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 979728624 bits/sec, 299574 packets/sec
+    300 seconds output rate 860981352 bits/sec, 297640 packets/sec
+    input rate 979.73 Mbps, 299.57 Kpps; output rate 860.98 Mbps, 297.64 Kpps
+  RX
+    840483978515 unicast packets  114426 multicast packets  8397 broadcast packets
+    840487593771 input packets  549161601898593 bytes
+    112482154556 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    852821695205 unicast packets  4836810 multicast packets  6801065 broadcast packets
+    852859306680 output packets  590048521013674 bytes
+    122122787935 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5278 output discard
+    0 Tx pause
+
+Ethernet1/12/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b5b (bia 9c66.9759.5b5b)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:16
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 959601768 bits/sec, 291548 packets/sec
+    30 seconds output rate 1085890248 bits/sec, 294951 packets/sec
+    input rate 959.60 Mbps, 291.55 Kpps; output rate 1.09 Gbps, 294.95 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 944590656 bits/sec, 285571 packets/sec
+    300 seconds output rate 1049585408 bits/sec, 288506 packets/sec
+    input rate 944.59 Mbps, 285.57 Kpps; output rate 1.05 Gbps, 288.51 Kpps
+  RX
+    890298403717 unicast packets  119068 multicast packets  9733 broadcast packets
+    890299926783 input packets  499187608447970 bytes
+    98518849536 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    937407869432 unicast packets  4894297 multicast packets  6800971 broadcast packets
+    937443656127 output packets  689748968249435 bytes
+    144213447313 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5255 output discard
+    0 Tx pause
+
+Ethernet1/13/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b5e (bia 9c66.9759.5b5e)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 938046776 bits/sec, 292122 packets/sec
+    30 seconds output rate 908728632 bits/sec, 291954 packets/sec
+    input rate 938.05 Mbps, 292.12 Kpps; output rate 908.73 Mbps, 291.95 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 928732168 bits/sec, 276613 packets/sec
+    300 seconds output rate 800777040 bits/sec, 274285 packets/sec
+    input rate 928.73 Mbps, 276.61 Kpps; output rate 800.78 Mbps, 274.29 Kpps
+  RX
+    1011174537551 unicast packets  167180 multicast packets  8450 broadcast packets
+    1011174713181 input packets  668269408959653 bytes
+    136674475345 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    1007532133283 unicast packets  4777139 multicast packets  6800838 broadcast packets
+    1007543711290 output packets  634745685347550 bytes
+    128419110508 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5249 output discard
+    0 Tx pause
+
+Ethernet1/13/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b5f (bia 9c66.9759.5b5f)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  20 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 756688432 bits/sec, 262773 packets/sec
+    30 seconds output rate 794249104 bits/sec, 262802 packets/sec
+    input rate 756.69 Mbps, 262.77 Kpps; output rate 794.25 Mbps, 262.80 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 755506984 bits/sec, 267906 packets/sec
+    300 seconds output rate 835306064 bits/sec, 268940 packets/sec
+    input rate 755.51 Mbps, 267.91 Kpps; output rate 835.31 Mbps, 268.94 Kpps
+  RX
+    733824681024 unicast packets  120264 multicast packets  9184 broadcast packets
+    733826679264 input packets  683950249654386 bytes
+    149825553945 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    714425864251 unicast packets  4917285 multicast packets  6800861 broadcast packets
+    714439437681 output packets  578280778104010 bytes
+    124222494440 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  42313 output discard
+    0 Tx pause
+
+Ethernet1/14/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b62 (bia 9c66.9759.5b62)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 1week(s) 5day(s)
+  Last clearing of "show interface" counters never
+  31 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 232 bits/sec, 0 packets/sec
+    30 seconds output rate 648 bits/sec, 0 packets/sec
+    input rate 232 bps, 0 pps; output rate 648 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 288 bits/sec, 0 packets/sec
+    300 seconds output rate 552 bits/sec, 0 packets/sec
+    input rate 288 bps, 0 pps; output rate 552 bps, 0 pps
+  RX
+    246237985987 unicast packets  163345 multicast packets  3148649 broadcast packets
+    246241440276 input packets  1014737820347273 bytes
+    243893744315 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    25227526679 unicast packets  4696976 multicast packets  3670097 broadcast packets
+    25238982726 output packets  56905198396623 bytes
+    13405996961 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  9478560 output discard
+    0 Tx pause
+
+Ethernet1/14/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b63 (bia 9c66.9759.5b63)
+  Description: To VAST - Storage Internal Network
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:03
+  Last clearing of "show interface" counters never
+  16 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 846254832 bits/sec, 274302 packets/sec
+    30 seconds output rate 793130648 bits/sec, 272910 packets/sec
+    input rate 846.25 Mbps, 274.30 Kpps; output rate 793.13 Mbps, 272.91 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 846945096 bits/sec, 277783 packets/sec
+    300 seconds output rate 824100432 bits/sec, 277036 packets/sec
+    input rate 846.95 Mbps, 277.78 Kpps; output rate 824.10 Mbps, 277.04 Kpps
+  RX
+    747444849473 unicast packets  221248 multicast packets  11321 broadcast packets
+    747446905344 input packets  547021092109538 bytes
+    115517382013 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    766180731408 unicast packets  4655820 multicast packets  5648159 broadcast packets
+    766196592325 output packets  619322749100721 bytes
+    132894424269 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  5242 output discard
+    0 Tx pause
+
+Ethernet1/15/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b66 (bia 9c66.9759.5b66)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:03
+  Last clearing of "show interface" counters never
+  49 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 88 bits/sec, 0 packets/sec
+    30 seconds output rate 296 bits/sec, 0 packets/sec
+    input rate 88 bps, 0 pps; output rate 296 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    6524854204 unicast packets  112096 multicast packets  982 broadcast packets
+    6524967290 input packets  15569851428560 bytes
+    3708373520 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    65481917383 unicast packets  2790740 multicast packets  66731 broadcast packets
+    65484775029 output packets  270256127282336 bytes
+    64904609273 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/15/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b67 (bia 9c66.9759.5b67)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  48 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 72 bits/sec, 0 packets/sec
+    30 seconds output rate 376 bits/sec, 0 packets/sec
+    input rate 72 bps, 0 pps; output rate 376 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    2996045981 unicast packets  111991 multicast packets  1056 broadcast packets
+    2996159030 input packets  3674511061101 bytes
+    832369094 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    50578647802 unicast packets  2790234 multicast packets  66580 broadcast packets
+    50581504701 output packets  208988531418525 bytes
+    50184299240 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/16/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b6a (bia 9c66.9759.5b6a)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  50 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 72 bits/sec, 0 packets/sec
+    30 seconds output rate 296 bits/sec, 0 packets/sec
+    input rate 72 bps, 0 pps; output rate 296 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    7128420889 unicast packets  111953 multicast packets  997 broadcast packets
+    7128533842 input packets  18258489288795 bytes
+    4320214086 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    65156883257 unicast packets  2789504 multicast packets  66181 broadcast packets
+    65159739050 output packets  268863686062919 bytes
+    64559700880 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/16/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b6b (bia 9c66.9759.5b6b)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:09
+  Last clearing of "show interface" counters never
+  51 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 24 bits/sec, 0 packets/sec
+    30 seconds output rate 384 bits/sec, 0 packets/sec
+    input rate 24 bps, 0 pps; output rate 384 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    10988523125 unicast packets  112010 multicast packets  913 broadcast packets
+    10988636053 input packets  45906920483492 bytes
+    8126910659 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    66481041199 unicast packets  2789558 multicast packets  66078 broadcast packets
+    66483897066 output packets  280886708628705 bytes
+    65677892431 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/17/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b6e (bia 9c66.9759.5b6e)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:03
+  Last clearing of "show interface" counters never
+  50 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 56 bits/sec, 0 packets/sec
+    30 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 56 bps, 0 pps; output rate 280 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    5350030082 unicast packets  112041 multicast packets  1078 broadcast packets
+    5350143202 input packets  15373689375988 bytes
+    3653108944 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    39194694031 unicast packets  2790721 multicast packets  66657 broadcast packets
+    39197551633 output packets  161664020379466 bytes
+    38818288444 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/17/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b6f (bia 9c66.9759.5b6f)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  50 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 136 bits/sec, 0 packets/sec
+    30 seconds output rate 296 bits/sec, 0 packets/sec
+    input rate 136 bps, 0 pps; output rate 296 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    1888981633 unicast packets  111943 multicast packets  983 broadcast packets
+    1889094560 input packets  7551591311459 bytes
+    1811959299 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    1539849157 unicast packets  2790787 multicast packets  66665 broadcast packets
+    1542706831 output packets  6067344078080 bytes
+    1455128587 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/18/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b72 (bia 9c66.9759.5b72)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:12
+  Last clearing of "show interface" counters never
+  50 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 72 bits/sec, 0 packets/sec
+    30 seconds output rate 480 bits/sec, 0 packets/sec
+    input rate 72 bps, 0 pps; output rate 480 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    2102371838 unicast packets  111988 multicast packets  1069 broadcast packets
+    2102484896 input packets  1931254119923 bytes
+    424946907 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    39232067667 unicast packets  2790777 multicast packets  66549 broadcast packets
+    39234925326 output packets  162200778811318 bytes
+    38949631893 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/18/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b73 (bia 9c66.9759.5b73)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:16
+  Last clearing of "show interface" counters never
+  50 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 40 bits/sec, 0 packets/sec
+    30 seconds output rate 336 bits/sec, 0 packets/sec
+    input rate 40 bps, 0 pps; output rate 336 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    3253745922 unicast packets  111969 multicast packets  1062 broadcast packets
+    3253858956 input packets  12844825962127 bytes
+    3081070446 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    3575703359 unicast packets  2790513 multicast packets  66516 broadcast packets
+    3578560728 output packets  14366049297697 bytes
+    3447139338 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/19/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b76 (bia 9c66.9759.5b76)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:01
+  Last clearing of "show interface" counters never
+  50 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 40 bits/sec, 0 packets/sec
+    30 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 40 bps, 0 pps; output rate 280 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 64 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 64 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    335186652 unicast packets  111929 multicast packets  953 broadcast packets
+    335299537 input packets  787705362956 bytes
+    321082697 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    414741431 unicast packets  2790525 multicast packets  66696 broadcast packets
+    417599153 output packets  1901635279614 bytes
+    401564800 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/19/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b77 (bia 9c66.9759.5b77)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:02
+  Last clearing of "show interface" counters never
+  50 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 88 bits/sec, 0 packets/sec
+    30 seconds output rate 296 bits/sec, 0 packets/sec
+    input rate 88 bps, 0 pps; output rate 296 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 72 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 72 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    3459592198 unicast packets  112006 multicast packets  1133 broadcast packets
+    3459705340 input packets  3620572927238 bytes
+    808102629 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    61998885609 unicast packets  2790515 multicast packets  66576 broadcast packets
+    62001743123 output packets  256277683552906 bytes
+    61540317351 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/20/1 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b7a (bia 9c66.9759.5b7a)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 1week(s) 5day(s)
+  Last clearing of "show interface" counters 3w2d
+  69 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 376 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 376 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    266175202065 unicast packets  8852 multicast packets  2493047 broadcast packets
+    266216667794 input packets  1100976553319031 bytes
+    263774958758 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    26842431422 unicast packets  1327411 multicast packets  1599 broadcast packets
+    26845423241 output packets  73052039925769 bytes
+    15377310925 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  7897027 output discard
+    0 Tx pause
+
+Ethernet1/20/2 is up
+admin state is up, Dedicated Interface
+  Hardware: 200000 Ethernet, address: 9c66.9759.5b7b (bia 9c66.9759.5b7b)
+  Description: To VAST - Storage Access
+  MTU 9216 bytes, BW 200000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 200 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 15:40:03
+  Last clearing of "show interface" counters never
+  52 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 88 bits/sec, 0 packets/sec
+    30 seconds output rate 296 bits/sec, 0 packets/sec
+    input rate 88 bps, 0 pps; output rate 296 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 72 bits/sec, 0 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 72 bps, 0 pps; output rate 280 bps, 0 pps
+  RX
+    3819056378 unicast packets  115441 multicast packets  1970 broadcast packets
+    3819173792 input packets  15105406784315 bytes
+    3623484268 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    4029126056 unicast packets  2788054 multicast packets  65290 broadcast packets
+    4031979822 output packets  16183206722406 bytes
+    3883099685 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/21 is down (XCVR not inserted)
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b7e (bia 9c66.9759.5b7e)
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/22 is down (XCVR not inserted)
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b82 (bia 9c66.9759.5b82)
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/23 is down (XCVR not inserted)
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b86 (bia 9c66.9759.5b86)
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/24 is up
+admin state is up, Dedicated Interface
+  Belongs to Po18
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b8a (bia 9c66.9759.5b8a)
+  Description: To RTP5-BCME-MGMT-1: 10.115.90.115 (PCIe3)
+  MTU 9216 bytes, BW 100000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 100 Gb/s, media type is 100G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is off
+  Last link flapped 4week(s) 1day(s)
+  Last clearing of "show interface" counters 9w1d
+  12 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 34472 bits/sec, 12 packets/sec
+    30 seconds output rate 400 bits/sec, 0 packets/sec
+    input rate 34.47 Kbps, 12 pps; output rate 400 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 11192 bits/sec, 6 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 11.19 Kbps, 6 pps; output rate 280 bps, 0 pps
+  RX
+    34272727 unicast packets  550868 multicast packets  18 broadcast packets
+    34823613 input packets  7358072395 bytes
+    21759 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    49 unicast packets  3291394 multicast packets  407834 broadcast packets
+    3699277 output packets  402316374 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/25 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b8e (bia 9c66.9759.5b8e)
+  Description: To NetApp: rtp5-ac01-nas-n01:e3a
+  MTU 9216 bytes, BW 100000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 100 Gb/s, media type is 100G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is off
+  Last link flapped 9week(s) 0day(s)
+  Last clearing of "show interface" counters never
+  4 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 72 bits/sec, 0 packets/sec
+    30 seconds output rate 10440 bits/sec, 14 packets/sec
+    input rate 72 bps, 0 pps; output rate 10.44 Kbps, 14 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 176 bits/sec, 0 packets/sec
+    300 seconds output rate 11960 bits/sec, 14 packets/sec
+    input rate 176 bps, 0 pps; output rate 11.96 Kbps, 14 pps
+  RX
+    36859006 unicast packets  150973 multicast packets  1141696 broadcast packets
+    38152054 input packets  68667000763 bytes
+    7430380 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    61762373 unicast packets  14350357 multicast packets  39789200 broadcast packets
+    115902688 output packets  177891175905 bytes
+    25416683 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/26 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b92 (bia 9c66.9759.5b92)
+  Description: To NetApp: rtp5-ac01-nas-n02:e3a
+  MTU 9216 bytes, BW 100000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 2/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 100 Gb/s, media type is 100G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is off
+  Last link flapped 9week(s) 0day(s)
+  Last clearing of "show interface" counters never
+  4 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 852928896 bits/sec, 12870 packets/sec
+    30 seconds output rate 5252344 bits/sec, 5650 packets/sec
+    input rate 852.93 Mbps, 12.87 Kpps; output rate 5.25 Mbps, 5.65 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 927634968 bits/sec, 13945 packets/sec
+    300 seconds output rate 5747176 bits/sec, 6093 packets/sec
+    input rate 927.63 Mbps, 13.94 Kpps; output rate 5.75 Mbps, 6.09 Kpps
+  RX
+    388117948 unicast packets  150973 multicast packets  1145949 broadcast packets
+    389415123 input packets  2362241586327 bytes
+    284375906 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    312822077 unicast packets  14350317 multicast packets  39784908 broadcast packets
+    366957739 output packets  1052868103959 bytes
+    135781740 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/27 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b2d (bia 9c66.9759.5b96)
+  Description: connected-to-FE-SP1-Ethernet1/4
+  Internet Address is 10.4.0.26/30
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 1week(s) 2day(s)
+  Last clearing of "show interface" counters never
+  3 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 2832 bits/sec, 2 packets/sec
+    30 seconds output rate 857615704 bits/sec, 12873 packets/sec
+    input rate 2.83 Kbps, 2 pps; output rate 857.61 Mbps, 12.87 Kpps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 2368 bits/sec, 2 packets/sec
+    300 seconds output rate 932787896 bits/sec, 13948 packets/sec
+    input rate 2.37 Kbps, 2 pps; output rate 932.79 Mbps, 13.95 Kpps
+  RX
+    77198620124 unicast packets  2019078 multicast packets  6 broadcast packets
+    77200639218 input packets  312958102775088 bytes
+    74148825361 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    73913344893 unicast packets  1485340687 multicast packets  5 broadcast packets
+    75398685635 output packets  309768273969551 bytes
+    73288444783 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/28 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b2d (bia 9c66.9759.5b9a)
+  Description: connected-to-FE-SP1-Ethernet1/5
+  Internet Address is 10.4.0.38/30
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 11week(s) 1day(s)
+  Last clearing of "show interface" counters never
+  2 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 7318720 bits/sec, 5632 packets/sec
+    30 seconds output rate 5944 bits/sec, 1 packets/sec
+    input rate 7.32 Mbps, 5.63 Kpps; output rate 5.94 Kbps, 1 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 7992784 bits/sec, 6073 packets/sec
+    300 seconds output rate 2168 bits/sec, 1 packets/sec
+    input rate 7.99 Mbps, 6.07 Kpps; output rate 2.17 Kbps, 1 pps
+  RX
+    7970002452 unicast packets  1947147 multicast packets  5 broadcast packets
+    7971949613 input packets  22109375768448 bytes
+    4992812439 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    41018129530 unicast packets  2297161 multicast packets  6 broadcast packets
+    41020427068 output packets  164868497295108 bytes
+    39071334474 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/29 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b2d (bia 9c66.9759.5b9e)
+  Description: connected-to-FE-SP1-Ethernet1/6
+  Internet Address is 10.4.0.46/30
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 11week(s) 1day(s)
+  Last clearing of "show interface" counters never
+  2 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 128 bits/sec, 0 packets/sec
+    30 seconds output rate 11928 bits/sec, 3 packets/sec
+    input rate 128 bps, 0 pps; output rate 11.93 Kbps, 3 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 240 bits/sec, 0 packets/sec
+    300 seconds output rate 4280 bits/sec, 2 packets/sec
+    input rate 240 bps, 0 pps; output rate 4.28 Kbps, 2 pps
+  RX
+    33447222563 unicast packets  2068329 multicast packets  6 broadcast packets
+    33449290967 input packets  139498098699595 bytes
+    33102692822 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    31169718251 unicast packets  1904215 multicast packets  5 broadcast packets
+    31171622726 output packets  118724506656879 bytes
+    28063933873 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/30 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b2d (bia 9c66.9759.5ba2)
+  Description: connected-to-FE-SP2-Ethernet1/4
+  Internet Address is 10.4.0.30/30
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 11week(s) 1day(s)
+  Last clearing of "show interface" counters never
+  2 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 168 bits/sec, 0 packets/sec
+    30 seconds output rate 16096 bits/sec, 1 packets/sec
+    input rate 168 bps, 0 pps; output rate 16.10 Kbps, 1 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 248 bits/sec, 0 packets/sec
+    300 seconds output rate 5600 bits/sec, 3 packets/sec
+    input rate 248 bps, 0 pps; output rate 5.60 Kbps, 3 pps
+  RX
+    5534666198 unicast packets  1916080 multicast packets  6 broadcast packets
+    5536583289 input packets  22390266997132 bytes
+    5026648901 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    35103092916 unicast packets  1954511 multicast packets  6 broadcast packets
+    35105047445 output packets  141406082051772 bytes
+    33528437360 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/31 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b2d (bia 9c66.9759.5ba6)
+  Description: connected-to-FE-SP2-Ethernet1/5
+  Internet Address is 10.4.0.34/30
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 11week(s) 1day(s)
+  Last clearing of "show interface" counters never
+  2 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 344 bits/sec, 0 packets/sec
+    30 seconds output rate 6808 bits/sec, 2 packets/sec
+    input rate 344 bps, 0 pps; output rate 6.81 Kbps, 2 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 336 bits/sec, 0 packets/sec
+    300 seconds output rate 3360 bits/sec, 2 packets/sec
+    input rate 336 bps, 0 pps; output rate 3.36 Kbps, 2 pps
+  RX
+    12635421486 unicast packets  2507114 multicast packets  4 broadcast packets
+    12637928736 input packets  28282380732877 bytes
+    6501262011 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    92585757808 unicast packets  1485368931 multicast packets  6 broadcast packets
+    94071126750 output packets  386835735889464 bytes
+    91804579620 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/32 is up
+admin state is up, Dedicated Interface
+  Hardware: 10000/25000/40000/50000/100000/200000/400000 Ethernet, address: 9c66.9759.5b2d (bia 9c66.9759.5baa)
+  Description: connected-to-FE-SP2-Ethernet1/6
+  Internet Address is 10.4.0.42/30
+  MTU 9216 bytes, BW 400000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  full-duplex, 400 Gb/s, media type is 400G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is Kp-fec
+  Last link flapped 11week(s) 1day(s)
+  Last clearing of "show interface" counters never
+  2 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 18680 bits/sec, 15 packets/sec
+    30 seconds output rate 1480 bits/sec, 1 packets/sec
+    input rate 18.68 Kbps, 15 pps; output rate 1.48 Kbps, 1 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 20472 bits/sec, 14 packets/sec
+    300 seconds output rate 1192 bits/sec, 1 packets/sec
+    input rate 20.47 Kbps, 14 pps; output rate 1.19 Kbps, 1 pps
+  RX
+    62936182665 unicast packets  40173348 multicast packets  6 broadcast packets
+    62976356600 input packets  257004777562705 bytes
+    60779474484 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    37537472734 unicast packets  2481791 multicast packets  5 broadcast packets
+    37539954832 output packets  147182588855472 bytes
+    34861610615 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/33 is down (XCVR not inserted)
+admin state is up, Dedicated Interface
+  Hardware: 1000/10000 Ethernet, address: 9c66.9759.5bae (bia 9c66.9759.5bae)
+  MTU 9216 bytes, BW 10000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is auto
+  Last link flapped never
+  Last clearing of "show interface" counters never
+  0 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 0 bits/sec, 0 packets/sec
+    30 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 0 bits/sec, 0 packets/sec
+    300 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+Ethernet1/34 is up
+admin state is up, Dedicated Interface
+  Hardware: 1000/10000 Ethernet, address: 9c66.9759.5bb2 (bia 9c66.9759.5bb2)
+  MTU 9216 bytes, BW 10000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 10 Gb/s, media type is 10G
+  Beacon is turned off
+  Auto-Negotiation is turned on  FEC mode is Auto
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Rate mode is dedicated
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  EEE (efficient-ethernet) : n/a
+    admin fec state is auto, oper fec state is off
+  Last link flapped 11week(s) 1day(s)
+  Last clearing of "show interface" counters never
+  3 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 712 bits/sec, 0 packets/sec
+    30 seconds output rate 96 bits/sec, 0 packets/sec
+    input rate 712 bps, 0 pps; output rate 96 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 248 bits/sec, 0 packets/sec
+    300 seconds output rate 128 bits/sec, 0 packets/sec
+    input rate 248 bps, 0 pps; output rate 128 bps, 0 pps
+  RX
+    140417 unicast packets  5309292 multicast packets  823141 broadcast packets
+    6272852 input packets  533219621 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  452926 multicast packets  0 broadcast packets
+    452926 output packets  142783775 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+port-channel18 is up
+admin state is up,
+ vPC Status: Up, vPC number: 18
+  Hardware: Port-Channel, address: 9c66.9759.5b8a (bia 9c66.9759.5b8a)
+  Description: To RTP5-BCME-MGMT-1: 10.115.90.115 (PCIe3)
+  MTU 9216 bytes, BW 100000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 100 Gb/s
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  Members in this channel: Eth1/24
+  Last clearing of "show interface" counters never
+  12 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 34472 bits/sec, 12 packets/sec
+    30 seconds output rate 400 bits/sec, 0 packets/sec
+    input rate 34.47 Kbps, 12 pps; output rate 400 bps, 0 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 11192 bits/sec, 6 packets/sec
+    300 seconds output rate 280 bits/sec, 0 packets/sec
+    input rate 11.19 Kbps, 6 pps; output rate 280 bps, 0 pps
+  RX
+    34272727 unicast packets  550868 multicast packets  18 broadcast packets
+    34823613 input packets  7358072395 bytes
+    21759 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    49 unicast packets  3291394 multicast packets  407834 broadcast packets
+    3699277 output packets  402316374 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+port-channel19 is up
+admin state is up,
+ vPC Status: Up, vPC number: 19
+  Hardware: Port-Channel, address: 9c66.9759.5b32 (bia 9c66.9759.5b32)
+  Description: To Pure Storage: XFM-1, XFM-2
+  MTU 9216 bytes, BW 1600000000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  full-duplex, 400 Gb/s
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  Members in this channel: Eth1/1, Eth1/2, Eth1/3, Eth1/4
+  Last clearing of "show interface" counters never
+  5 interface resets
+  Load-Interval #1: 30 seconds
+    30 seconds input rate 4064 bits/sec, 0 packets/sec
+    30 seconds output rate 2336 bits/sec, 1 packets/sec
+    input rate 4.06 Kbps, 0 pps; output rate 2.34 Kbps, 1 pps
+  Load-Interval #2: 5 minute (300 seconds)
+    300 seconds input rate 4064 bits/sec, 0 packets/sec
+    300 seconds output rate 2136 bits/sec, 1 packets/sec
+    input rate 4.06 Kbps, 0 pps; output rate 2.14 Kbps, 1 pps
+  RX
+    390779 unicast packets  18759638 multicast packets  9545 broadcast packets
+    19159962 input packets  2899790114 bytes
+    55871 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    370920 unicast packets  4994352 multicast packets  75180 broadcast packets
+    5440452 output packets  1148296436 bytes
+    62496 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+port-channel500 is up
+admin state is up,
+  Hardware: Port-Channel, address: 0000.0000.0000 (bia 0000.0000.0000)
+  Description: "vpc-peer-link FE-SLF2--FE-SLF1"
+  MTU 9216 bytes, BW 100000 Kbit , DLY 10 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, medium is broadcast
+  Port mode is trunk
+  auto-duplex, auto-speed
+  Input flow-control is off, output flow-control is off
+  Auto-mdix is turned off
+  Switchport monitor is off 
+  EtherType is 0x8100 
+  No members
+  Last clearing of "show interface" counters never
+  2 interface resets
+  Load-Interval #1: 0 seconds
+    0 seconds input rate 0 bits/sec, 0 packets/sec
+    0 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  Load-Interval #2: 0 seconds
+    0 seconds input rate 0 bits/sec, 0 packets/sec
+    0 seconds output rate 0 bits/sec, 0 packets/sec
+    input rate 0 bps, 0 pps; output rate 0 bps, 0 pps
+  RX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 input packets  0 bytes
+    0 jumbo packets  0 storm suppression bytes
+    0 runts  0 giants  0 CRC  0 no buffer
+    0 input error  0 short frame  0 overrun   0 underrun  0 ignored
+    0 watchdog  0 bad etype drop  0 bad proto drop  0 if down drop
+    0 input with dribble  0 input discard
+    0 Rx pause
+    0 Stomped CRC
+  TX
+    0 unicast packets  0 multicast packets  0 broadcast packets
+    0 output packets  0 bytes
+    0 jumbo packets
+    0 output error  0 collision  0 deferred  0 late collision
+    0 lost carrier  0 no carrier  0 babble  0 output discard
+    0 Tx pause
+
+loopback0 is up
+admin state is up,
+  Hardware: Loopback
+  Description: Routing loopback interface
+  Internet Address is 10.2.0.3/32
+  MTU 1500 bytes, BW 8000000 Kbit , DLY 5000 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation LOOPBACK, medium is broadcast
+  Auto-mdix is turned off
+    17142411 packets input 3257338117 bytes
+    0 multicast frames 0 compressed
+    0 input errors 0 frame 0 overrun 0 fifo
+    0 packets output 0 bytes 0 underruns
+    0 output errors 0 collisions 0 fifo
+    0 out_carrier_errors
+
+loopback1 is up
+admin state is up,
+  Hardware: Loopback
+  Description: VTEP loopback interface
+  Internet Address is 10.3.0.2/32
+  MTU 1500 bytes, BW 8000000 Kbit , DLY 5000 usec
+  reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation LOOPBACK, medium is broadcast
+  Auto-mdix is turned off
+    708 packets input 26904 bytes
+    0 multicast frames 0 compressed
+    0 input errors 0 frame 0 overrun 0 fifo
+    0 packets output 0 bytes 0 underruns
+    0 output errors 0 collisions 0 fifo
+    0 out_carrier_errors
+
+Vlan1 is down (Administratively down), line protocol is down, autostate enabled
+  Hardware is EtherSVI, address is  9c66.9759.5b2d
+  MTU 1500 bytes, BW 1000000 Kbit, DLY 10 usec,
+   reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive not supported
+  ARP type: ARPA
+  Last clearing of "show interface" counters never
+  L3 in Switched:
+    ucast: 0 pkts, 0 bytes
+  L3 out Switched:
+    ucast: 0 pkts, 0 bytes
+
+Vlan570 is up, line protocol is up, autostate enabled
+  Hardware is EtherSVI, address is  9c66.9759.5b2d
+  Internet Address is 10.115.90.214/29
+  MTU 1500 bytes, BW 1000000 Kbit, DLY 10 usec,
+   reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive not supported
+  ARP type: ARPA
+  Last clearing of "show interface" counters never
+  L3 in Switched:
+    ucast: 0 pkts, 0 bytes
+  L3 out Switched:
+    ucast: 0 pkts, 0 bytes
+
+Vlan703 is up, line protocol is up, autostate enabled
+  Hardware is EtherSVI, address is  9c66.9759.5b2d
+  Description: IB-MGMT
+  Internet Address is 10.115.90.126/26
+  MTU 1500 bytes, BW 1000000 Kbit, DLY 10 usec,
+   reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive not supported
+  ARP type: ARPA
+  Last clearing of "show interface" counters never
+  L3 in Switched:
+    ucast: 0 pkts, 0 bytes
+  L3 out Switched:
+    ucast: 0 pkts, 0 bytes
+
+Vlan2000 is up, line protocol is up, autostate enabled
+  Hardware is EtherSVI, address is  9c66.9759.5b2d
+  Description: FE-MGMT  VRF
+  MTU 9216 bytes, BW 1000000 Kbit, DLY 10 usec,
+   reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive not supported
+  ARP type: ARPA
+  Last clearing of "show interface" counters never
+  L3 in Switched:
+    ucast: 0 pkts, 0 bytes
+  L3 out Switched:
+    ucast: 0 pkts, 0 bytes
+
+nve1 is up
+admin state is up,  Hardware: NVE
+  MTU 9216 bytes
+  Encapsulation VXLAN
+  Auto-mdix is turned off
+  RX
+    ucast: 198711418457 pkts, 781055233877143 bytes - mcast: 844057028 pkts, 539381882986 bytes
+  TX
+    ucast: 310448276959 pkts, 1265660456253357 bytes - mcast: 4450442065 pkts, 3032730171944 bytes
+
+Ethernet1/1
+    transceiver is present
+    type is QSFP-DD-400G-DR4
+    name is CISCO-INNOLIGHT
+    part number is T-DP4CNH-NC2
+    revision is 3D
+    serial number is INL284603KD
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 7
+    cisco part number is 10-3320-02
+    cisco product id is QDD-400G-DR4-S
+    cisco version id is V02
+    firmware version is 234.6
+    Link length SMF is 0.5 km
+    Nominal transmitter wavelength is 1311.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 241112  
+    clei code is CMUIAX5CAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400GBASE-DR4 (Cl 124)
+
+Ethernet1/2
+    transceiver is present
+    type is QSFP-DD-400G-DR4
+    name is CISCO-INNOLIGHT
+    part number is T-DP4CNH-NC2
+    revision is 3D
+    serial number is INL284603TA
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 7
+    cisco part number is 10-3320-02
+    cisco product id is QDD-400G-DR4-S
+    cisco version id is V02
+    firmware version is 234.6
+    Link length SMF is 0.5 km
+    Nominal transmitter wavelength is 1311.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 241112  
+    clei code is CMUIAX5CAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400GBASE-DR4 (Cl 124)
+
+Ethernet1/3
+    transceiver is present
+    type is QSFP-DD-400G-DR4
+    name is CISCO-INNOLIGHT
+    part number is T-DP4CNH-NC2
+    revision is 3D
+    serial number is INL284603KN
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 7
+    cisco part number is 10-3320-02
+    cisco product id is QDD-400G-DR4-S
+    cisco version id is V02
+    firmware version is 234.6
+    Link length SMF is 0.5 km
+    Nominal transmitter wavelength is 1311.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 241112  
+    clei code is CMUIAX5CAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400GBASE-DR4 (Cl 124)
+
+Ethernet1/4
+    transceiver is present
+    type is QSFP-DD-400G-DR4
+    name is CISCO-INNOLIGHT
+    part number is T-DP4CNH-NC2
+    revision is 3D
+    serial number is INL284603T9
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 7
+    cisco part number is 10-3320-02
+    cisco product id is QDD-400G-DR4-S
+    cisco version id is V02
+    firmware version is 234.6
+    Link length SMF is 0.5 km
+    Nominal transmitter wavelength is 1311.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 241112  
+    clei code is CMUIAX5CAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400GBASE-DR4 (Cl 124)
+
+Ethernet1/5
+    transceiver is present
+    type is QSFP-100G40G-BIDI
+    name is CISCO-FOIT
+    part number is SFBR-89BDDZ-CS4
+    revision is 02
+    serial number is FTF2709NCRF
+    nominal bitrate is 25500 MBit/sec per channel
+    Link length supported for 50/125um OM3 fiber is 70 m
+    cisco id is 17
+    cisco extended id number is 220
+    cisco part number is 10-3317-03
+    cisco product id is QSFP-40/100-SRBD
+    cisco version id is V03
+
+Ethernet1/6
+    transceiver is present
+    type is QSFP-100G40G-BIDI
+    name is CISCO-FOIT
+    part number is SFBR-89BDDZ-CS4
+    revision is 02
+    serial number is FTF2709NCNU
+    nominal bitrate is 25500 MBit/sec per channel
+    Link length supported for 50/125um OM3 fiber is 70 m
+    cisco id is 17
+    cisco extended id number is 220
+    cisco part number is 10-3317-03
+    cisco product id is QSFP-40/100-SRBD
+    cisco version id is V03
+
+Ethernet1/7
+    transceiver is present
+    type is QSFP-100G40G-BIDI
+    name is CISCO-FOIT
+    part number is SFBR-89BDDZ-CS4
+    revision is 02
+    serial number is FTF2709NCR3
+    nominal bitrate is 25500 MBit/sec per channel
+    Link length supported for 50/125um OM3 fiber is 70 m
+    cisco id is 17
+    cisco extended id number is 220
+    cisco part number is 10-3317-03
+    cisco product id is QSFP-40/100-SRBD
+    cisco version id is V03
+
+Ethernet1/8
+    transceiver is present
+    type is QSFP-100G40G-BIDI
+    name is CISCO-FOIT
+    part number is SFBR-89BDDZ-CS4
+    revision is 02
+    serial number is FTF2709NCNW
+    nominal bitrate is 25500 MBit/sec per channel
+    Link length supported for 50/125um OM3 fiber is 70 m
+    cisco id is 17
+    cisco extended id number is 220
+    cisco part number is 10-3317-03
+    cisco product id is QSFP-40/100-SRBD
+    cisco version id is V03
+
+Ethernet1/9/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0LZ
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/9/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0LZ
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/10/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F01K
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/10/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F01K
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/11/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F003
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/11/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F003
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/12/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F001
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/12/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F001
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/13/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F03E
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/13/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F03E
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/14/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F02F
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/14/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F02F
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/15/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F0L9
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/15/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F0L9
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/16/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0PD
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/16/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0PD
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/17/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0M1
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/17/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0M1
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/18/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F035
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/18/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F035
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/19/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F0NJ
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/19/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2827F0NJ
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240701  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/20/1
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0N6
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/20/2
+    transceiver is present
+    type is QDD-2Q200G-COPPER
+    name is CISCO-LUXSHARE
+    part number is L0FDD013-SD-R
+    revision is X1
+    serial number is SNL2826F0N6
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 31
+    cisco part number is 37-2198-01
+    cisco product id is QDD-2Q200-CU3M
+    cisco version id is V01
+    vendor OUI is 0x3c18a0
+    date code is 240624  
+    clei code is CMPQAJBCAA
+    power class is 1 (1.5 W maximum)
+    max power is 1.50 W
+    cable attenuation is 7/8/12/23/0 dB for bands 5/7/12.9/25.8 GHz
+    near-end lanes used none
+    far-end lane code for 8 lanes aaaaeeee
+    media interface is copper cable unequalized
+    Advertising code is Passive Cu
+    Host electrical interface code is 200GBase-CR4 (Clause 85)
+    Cable Length is   3.0 M
+    CMIS version is  4
+
+Ethernet1/21
+    transceiver is not present
+
+Ethernet1/22
+    transceiver is not present
+
+Ethernet1/23
+    transceiver is not present
+
+Ethernet1/24
+    transceiver is present
+    type is QSFP-100G-DR
+    name is CISCO-INNOLIGHT
+    part number is TR-ZC13H-NC2
+    revision is 2C
+    serial number is INL284602SE
+    nominal bitrate is 25500 MBit/sec per channel
+    Link length supported for 9/125um fiber is 1 km
+    cisco id is 17
+    cisco extended id number is 221
+    cisco part number is 10-3507-01
+    cisco product id is QSFP-100G-DR-S
+    cisco version id is V01
+
+Ethernet1/25
+    transceiver is present
+    type is QSFP-100G40G-BIDI
+    name is CISCO-FOIT
+    part number is SFBR-89BDDZ-CS4
+    revision is 02
+    serial number is FTF2707NBAN
+    nominal bitrate is 25500 MBit/sec per channel
+    Link length supported for 50/125um OM3 fiber is 70 m
+    cisco id is 17
+    cisco extended id number is 220
+    cisco part number is 10-3317-03
+    cisco product id is QSFP-40/100-SRBD
+    cisco version id is V03
+
+Ethernet1/26
+    transceiver is present
+    type is QSFP-100G40G-BIDI
+    name is CISCO-FOIT
+    part number is SFBR-89BDDZ-CS4
+    revision is 02
+    serial number is FTF2707NBBS
+    nominal bitrate is 25500 MBit/sec per channel
+    Link length supported for 50/125um OM3 fiber is 70 m
+    cisco id is 17
+    cisco extended id number is 220
+    cisco part number is 10-3317-03
+    cisco product id is QSFP-40/100-SRBD
+    cisco version id is V03
+
+Ethernet1/27
+    transceiver is present
+    type is QSFP-DD-400G-FR4
+    name is CISCO-INNOLIGHT
+    part number is T-DQ4CNT-NC2
+    revision is 3C
+    serial number is IND283005GX
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 6
+    cisco part number is 10-3321-01
+    cisco product id is QDD-400G-FR4-S
+    cisco version id is V01
+    firmware version is 234.6
+    Link length SMF is 2 km
+    Nominal transmitter wavelength is 1301.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 240724  
+    clei code is CMUIAUNCAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400G-FR4
+
+Ethernet1/28
+    transceiver is present
+    type is QSFP-DD-400G-FR4
+    name is CISCO-INNOLIGHT
+    part number is T-DQ4CNT-NC2
+    revision is 3C
+    serial number is IND283005K6
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 6
+    cisco part number is 10-3321-01
+    cisco product id is QDD-400G-FR4-S
+    cisco version id is V01
+    firmware version is 234.6
+    Link length SMF is 2 km
+    Nominal transmitter wavelength is 1301.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 240724  
+    clei code is CMUIAUNCAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400G-FR4
+
+Ethernet1/29
+    transceiver is present
+    type is QSFP-DD-400G-FR4
+    name is CISCO-INNOLIGHT
+    part number is T-DQ4CNT-NC2
+    revision is 3C
+    serial number is IND283005UZ
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 6
+    cisco part number is 10-3321-01
+    cisco product id is QDD-400G-FR4-S
+    cisco version id is V01
+    firmware version is 234.6
+    Link length SMF is 2 km
+    Nominal transmitter wavelength is 1301.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 240724  
+    clei code is CMUIAUNCAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400G-FR4
+
+Ethernet1/30
+    transceiver is present
+    type is QSFP-DD-400G-FR4
+    name is CISCO-INNOLIGHT
+    part number is T-DQ4CNT-NC2
+    revision is 3C
+    serial number is INL282609F7
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 6
+    cisco part number is 10-3321-01
+    cisco product id is QDD-400G-FR4-S
+    cisco version id is V01
+    firmware version is 234.6
+    Link length SMF is 2 km
+    Nominal transmitter wavelength is 1301.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 240629  
+    clei code is CMUIAUNCAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400G-FR4
+
+Ethernet1/31
+    transceiver is present
+    type is QSFP-DD-400G-FR4
+    name is CISCO-INNOLIGHT
+    part number is T-DQ4CNT-NC2
+    revision is 3C
+    serial number is INL282609EF
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 6
+    cisco part number is 10-3321-01
+    cisco product id is QDD-400G-FR4-S
+    cisco version id is V01
+    firmware version is 234.6
+    Link length SMF is 2 km
+    Nominal transmitter wavelength is 1301.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 240629  
+    clei code is CMUIAUNCAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400G-FR4
+
+Ethernet1/32
+    transceiver is present
+    type is QSFP-DD-400G-FR4
+    name is CISCO-INNOLIGHT
+    part number is T-DQ4CNT-NC2
+    revision is 3C
+    serial number is INL282609JD
+    nominal bitrate is 425000 MBit/sec per channel
+    cisco id is 24
+    cisco extended id number is 6
+    cisco part number is 10-3321-01
+    cisco product id is QDD-400G-FR4-S
+    cisco version id is V01
+    firmware version is 234.6
+    Link length SMF is 2 km
+    Nominal transmitter wavelength is 1301.00 nm
+    Wavelength tolerance is 6.500 nm
+    host lane count is 8
+    media lane count is 4
+    max module temperature is 75 deg C
+    min module temperature is 0 deg C
+    min operational voltage is 3.14 V
+    vendor OUI is 0x447c7f
+    date code is 240629  
+    clei code is CMUIAUNCAA
+    power class is 6 (12.0 W maximum)
+    max power is 12.00 W
+    near-end lanes used none
+    far-end lane code for 8 lanes Undefined
+    media interface is 1310 nm EML
+    Advertising code is Optical Interfaces: SMF
+    Host electrical interface code is 400GAUI-8 C2M (Annex 120E)
+    media interface advertising code is 400G-FR4
+
+Ethernet1/33
+    transceiver is not present
+
+Ethernet1/34
+    transceiver is present
+    type is 10Gbase-SR
+    name is CISCO-FINISAR
+    part number is FTLX8571D3BCL-C2
+    revision is A
+    serial number is FNS173902TX
+    nominal bitrate is 10300 MBit/sec
+    Link length supported for 50/125um OM2 fiber is 82 m
+    Link length supported for 62.5/125um fiber is 26 m
+    Link length supported for 50/125um OM3 fiber is 300 m
+    cisco id is 3
+    cisco extended id number is 4
+    cisco part number is 10-2415-03
+    cisco product id is SFP-10G-SR
+    cisco version id is V03
+
